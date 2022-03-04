@@ -35,14 +35,15 @@ const MainCategoriesModal = (props) => {
         const newRatioSum = _.sumBy(salaryBreakdown, "ratio");
 
         if (newRatioSum !== 100) {
-            console.log(salaryBreakdown.length, changedIndex);
             const prevSalaryBreakdown = [...salaryBreakdown];
             const difference = 100 - newRatioSum;
+
             if (salaryBreakdown.length - 1 !== changedIndex) {
                 _.last(prevSalaryBreakdown).ratio += difference;
             } else {
                 prevSalaryBreakdown[0].ratio += difference;
             }
+
             setSalaryBreakdown(prevSalaryBreakdown);
             props.setSalaryBreakdown(prevSalaryBreakdown);
         }

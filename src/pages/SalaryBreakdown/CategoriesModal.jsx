@@ -1,18 +1,41 @@
-import { Box, Backdrop, Fade, Modal, Typography } from "@mui/material";
-import React from "react";
+import {
+    Backdrop,
+    Box,
+    Fade,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Modal,
+    Select,
+} from "@mui/material";
+import React, { useState } from "react";
 
 const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
+    minWidth: "40vw",
+    maxWidth: "90vw",
+    backgroundColor: "background.paper",
     boxShadow: 24,
-    p: 4,
+    borderColor: "transparent",
+    borderRadius: "10px",
+    p: "1rem 2rem",
 };
 
 const CategoriesModal = (props) => {
+    const [salaryBreakdown, setSalaryBreakdown] = useState(
+        props.salaryBreakdown
+    );
+
+    const [selectedMainCategoryIndex, setSelectedMainCategoryIndex] =
+        useState(0);
+
+    const handleMainCategoryTitle = (event) => {
+        setSelectedMainCategoryIndex(event.target.value);
+    };
+
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -27,20 +50,32 @@ const CategoriesModal = (props) => {
         >
             <Fade in={props.isCategoriesModalOpen}>
                 <Box sx={style}>
-                    <Typography
-                        id="transition-modal-title"
-                        variant="h6"
-                        component="h2"
+                    <FormControl
+                        sx={{
+                            m: 1,
+                            width: 200,
+                        }}
                     >
-                        Text in a modal
-                    </Typography>
-                    <Typography
-                        id="transition-modal-description"
-                        sx={{ mt: 2 }}
-                    >
-                        Duis mollis, est non commodo luctus, nisi erat porttitor
-                        ligula.
-                    </Typography>
+                        <InputLabel id="demo-simple-select-autowidth-label">
+                            Main Category
+                        </InputLabel>
+                        <Select
+                            labelId="demo-simple-select-autowidth-label"
+                            id="demo-simple-select-autowidth"
+                            value={selectedMainCategoryIndex}
+                            onChange={handleMainCategoryTitle}
+                            autoWidth
+                            label="Main Category"
+                        >
+                            {salaryBreakdown.map((category, index) => {
+                                return (
+                                    <MenuItem value={index} key={index}>
+                                        {category.title}
+                                    </MenuItem>
+                                );
+                            })}
+                        </Select>
+                    </FormControl>
                 </Box>
             </Fade>
         </Modal>

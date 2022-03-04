@@ -44,6 +44,8 @@ const Menu = (props) => {
             <CategoriesModal
                 isCategoriesModalOpen={isCategoriesModalOpen}
                 handleCategoriesModal={handleCategoriesModal}
+                salaryBreakdown={props.salaryBreakdown}
+                setSalaryBreakdown={props.setSalaryBreakdown}
             />
 
             <Container

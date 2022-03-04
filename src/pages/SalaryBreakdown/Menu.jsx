@@ -1,4 +1,5 @@
-import { Button, Container } from "@mui/material";
+import { Button, Container, InputAdornment, TextField } from "@mui/material";
+import _ from "lodash";
 import React, { Fragment, useState } from "react";
 import CategoriesModal from "./CategoriesModal";
 import MainCategoriesModal from "./MainCategoriesModal";
@@ -8,6 +9,7 @@ const Menu = (props) => {
         useState(false);
     const [isCategoriesModalOpen, setIsCategoriesModalOpenOpen] =
         useState(false);
+    const [monthlySalary, setMonthlySalary] = useState(props.monthlySalary);
 
     const handleMainCategoriesModal = () => {
         setIsMainCategoriesModalOpenOpen((isMainCategoriesModalOpen) => {
@@ -19,6 +21,15 @@ const Menu = (props) => {
         setIsCategoriesModalOpenOpen((isCategoriesModalOpen) => {
             return !isCategoriesModalOpen;
         });
+    };
+
+    const handleSetMonthlySalary = () => {
+        props.setMonthlySalary(monthlySalary);
+    };
+
+    const handleChangeMonthlySalary = (event) => {
+        const inputValue = parseInt(_.get(event, "target.value"));
+        setMonthlySalary(inputValue);
     };
 
     return (
@@ -43,9 +54,24 @@ const Menu = (props) => {
                     gap: "1rem",
                 }}
             >
+                <TextField
+                    variant="outlined"
+                    size="small"
+                    label="Monthly Salary"
+                    value={monthlySalary}
+                    onChange={handleChangeMonthlySalary}
+                    onBlur={handleSetMonthlySalary}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">INR</InputAdornment>
+                        ),
+                    }}
+                />
+
                 <Button variant="outlined" onClick={handleMainCategoriesModal}>
                     Change breakdown
                 </Button>
+
                 <Button variant="outlined" onClick={handleCategoriesModal}>
                     Edit categories
                 </Button>

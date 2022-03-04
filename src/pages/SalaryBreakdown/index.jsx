@@ -6,6 +6,7 @@ import SalaryBreakdownData from "../../data/SalaryBreakdown.json";
 
 const SalaryBreakdown = () => {
     const [salaryBreakdown, setSalaryBreakdown] = useState(SalaryBreakdownData);
+    const [monthlySalary, setMonthlySalary] = useState(22500);
 
     return (
         <Box>
@@ -22,10 +23,15 @@ const SalaryBreakdown = () => {
 
             <Menu
                 salaryBreakdown={salaryBreakdown}
+                monthlySalary={monthlySalary}
                 setSalaryBreakdown={setSalaryBreakdown}
+                setMonthlySalary={setMonthlySalary}
             />
 
-            <BreakdownTable salaryBreakdown={salaryBreakdown} />
+            <BreakdownTable
+                salaryBreakdown={salaryBreakdown}
+                monthlySalary={monthlySalary}
+            />
         </Box>
     );
 };

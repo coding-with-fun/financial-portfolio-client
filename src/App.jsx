@@ -9,7 +9,14 @@ const App = () => {
         <Box>
             <Router>
                 <Navbar />
-                <IndexRouter />
+
+                <Box
+                    sx={{
+                        pt: "4.2rem",
+                    }}
+                >
+                    <IndexRouter />
+                </Box>
             </Router>
         </Box>
     );

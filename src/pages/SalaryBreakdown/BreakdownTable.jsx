@@ -8,8 +8,9 @@ import {
     TableRow,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import _ from "lodash";
+import _, { parseInt } from "lodash";
 import React, { Fragment } from "react";
+import { RoundToTwoDecimals } from "../../utils/RoundToTwoDecimals";
 
 const TableCell = styled(MUITableCell)(() => ({
     border: "1px solid rgba(224, 224, 224, 1)",
@@ -28,21 +29,21 @@ const BreakdownTable = (props) => {
                     minWidth: 700,
                     border: "1px solid rgba(224, 224, 224, 1)",
                 }}
-                aria-label="spanning table"
+                aria-label="salary table"
             >
                 <TableHead>
                     <TableRow>
                         <TableCell>Description</TableCell>
 
-                        <TableCell>Break-down of the main %</TableCell>
+                        <TableCell>Ratio</TableCell>
 
                         <TableCell>Main amount</TableCell>
 
-                        <TableCell>Break-down description</TableCell>
+                        <TableCell>Sub-category description</TableCell>
 
-                        <TableCell>Break-down of the % break-down</TableCell>
+                        <TableCell>Sub-category ratio</TableCell>
 
-                        <TableCell>Break-down amount</TableCell>
+                        <TableCell>Sub-category amount</TableCell>
 
                         <TableCell>% of salary</TableCell>
 
@@ -52,8 +53,9 @@ const BreakdownTable = (props) => {
 
                 <TableBody>
                     {props.salaryBreakdown.map((item) => {
-                        const mainAmount =
-                            (props.monthlySalary * item.ratio) / 100;
+                        const mainAmount = parseInt(
+                            (props.monthlySalary * item.ratio) / 100
+                        );
                         let remainingPercentage = 100;
 
                         totalRatio += item.ratio;
@@ -90,13 +92,13 @@ const BreakdownTable = (props) => {
                                         category.amount &&
                                         !categoryPercentage
                                     ) {
-                                        categoryPercentage =
-                                            (100 * category.amount) /
-                                            mainAmount;
+                                        categoryPercentage = RoundToTwoDecimals(
+                                            (100 * category.amount) / mainAmount
+                                        );
                                     }
                                     if (categoryPercentage) {
                                         remainingPercentage -=
-                                            parseFloat(categoryPercentage);
+                                            categoryPercentage;
                                     } else {
                                         categoryPercentage =
                                             remainingPercentage;
@@ -104,10 +106,15 @@ const BreakdownTable = (props) => {
 
                                     const categoryAmount =
                                         category.amount ||
-                                        (categoryPercentage * mainAmount) / 100;
+                                        parseInt(
+                                            (categoryPercentage * mainAmount) /
+                                                100
+                                        );
                                     const salaryToCategoryRatio =
-                                        (categoryAmount * 100) /
-                                        props.monthlySalary;
+                                        RoundToTwoDecimals(
+                                            (categoryAmount * 100) /
+                                                props.monthlySalary
+                                        );
 
                                     totalCategoryAmount += categoryAmount;
                                     totalSalaryToCategoryRatio +=
@@ -120,7 +127,7 @@ const BreakdownTable = (props) => {
                                             </TableCell>
 
                                             <TableCell>
-                                                {categoryPercentage.toFixed(2)}%
+                                                {categoryPercentage}%
                                             </TableCell>
 
                                             <TableCell>
@@ -128,10 +135,7 @@ const BreakdownTable = (props) => {
                                             </TableCell>
 
                                             <TableCell>
-                                                {salaryToCategoryRatio.toFixed(
-                                                    2
-                                                )}
-                                                %
+                                                {salaryToCategoryRatio}%
                                             </TableCell>
 
                                             <TableCell>
@@ -145,21 +149,21 @@ const BreakdownTable = (props) => {
                     })}
 
                     <TableRow>
-                        <TableCell></TableCell>
+                        <TableCell />
 
                         <TableCell>{totalRatio}%</TableCell>
 
                         <TableCell>{totalMainAmount} INR</TableCell>
 
-                        <TableCell></TableCell>
+                        <TableCell />
 
-                        <TableCell></TableCell>
+                        <TableCell />
 
                         <TableCell>{totalCategoryAmount} INR</TableCell>
 
                         <TableCell>{totalSalaryToCategoryRatio}%</TableCell>
 
-                        <TableCell></TableCell>
+                        <TableCell />
                     </TableRow>
                 </TableBody>
             </Table>

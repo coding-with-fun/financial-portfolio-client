@@ -29,14 +29,20 @@ const MainCategoriesModal = (props) => {
     const [salaryBreakdown, setSalaryBreakdown] = useState(
         props.salaryBreakdown
     );
+    const [changedIndex, setChangedIndex] = useState();
 
     const calculateRatio = () => {
         const newRatioSum = _.sumBy(salaryBreakdown, "ratio");
 
         if (newRatioSum !== 100) {
+            console.log(salaryBreakdown.length, changedIndex);
             const prevSalaryBreakdown = [...salaryBreakdown];
             const difference = 100 - newRatioSum;
-            _.last(prevSalaryBreakdown).ratio += difference;
+            if (salaryBreakdown.length - 1 !== changedIndex) {
+                _.last(prevSalaryBreakdown).ratio += difference;
+            } else {
+                prevSalaryBreakdown[0].ratio += difference;
+            }
             setSalaryBreakdown(prevSalaryBreakdown);
             props.setSalaryBreakdown(prevSalaryBreakdown);
         }
@@ -51,6 +57,7 @@ const MainCategoriesModal = (props) => {
                 ? parseInt(inputValue)
                 : 0;
             setSalaryBreakdown(prevSalaryBreakdown);
+            setChangedIndex(index);
         }
     };
 

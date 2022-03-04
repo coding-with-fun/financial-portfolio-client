@@ -21,7 +21,7 @@ const Navbar = () => {
                     flexGrow: 1,
                 }}
             >
-                <AppBar position="static">
+                <AppBar position="fixed">
                     <Toolbar>
                         <IconButton
                             size="large"

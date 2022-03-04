@@ -5,7 +5,11 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./styles/index.css";
 
-const theme = createTheme({});
+const theme = createTheme({
+    typography: {
+        fontFamily: `"Poppins", sans-serif`,
+    },
+});
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>

@@ -1,0 +1,62 @@
+[
+    {
+        "_id": 0,
+        "title": "Needs",
+        "ratio": 20,
+        "categories": [
+            {
+                "title": "Cash in-hand",
+                "bank": "Axis Bank"
+            },
+            {
+                "title": "LIC Monthly",
+                "amount": 0,
+                "bank": "SBI"
+            },
+            {
+                "title": "Mobile recharge",
+                "amount": 300,
+                "bank": "Axis Bank"
+            },
+            {
+                "title": "APY",
+                "amount": 269,
+                "bank": "SBI"
+            }
+        ]
+    },
+    {
+        "_id": 1,
+        "title": "Wants",
+        "ratio": 30,
+        "categories": [
+            {
+                "title": "FD",
+                "ratio": 100,
+                "bank": "SBI"
+            }
+        ]
+    },
+    {
+        "_id": 2,
+        "title": "Investments",
+        "ratio": 50,
+        "categories": [
+            {
+                "title": "FD",
+                "ratio": 20,
+                "bank": "SBI"
+            },
+            {
+                "title": "PPF",
+                "ratio": 30,
+                "bank": "SBI"
+            },
+            {
+                "title": "Index MF",
+                "ratio": 50,
+                "bank": "SBI"
+            }
+        ]
+    }
+]

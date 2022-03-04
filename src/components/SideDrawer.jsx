@@ -3,6 +3,7 @@ import {
     AutoGraph as AutoGraphIcon,
     Home as HomeIcon,
     Logout as SignOutIcon,
+    PieChart as PieChartIcon,
 } from "@mui/icons-material";
 import {
     Box,
@@ -21,6 +22,11 @@ const UpperDrawerList = [
         icon: <HomeIcon />,
         text: "Home",
         path: "/",
+    },
+    {
+        icon: <PieChartIcon />,
+        text: "Salary Breakdown",
+        path: "/salary-breakdown",
     },
     {
         icon: <AccountBalanceIcon />,

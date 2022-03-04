@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import React, { Fragment, useState } from "react";
 import SideDrawer from "./SideDrawer";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
     const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
 
     return (
@@ -36,11 +39,19 @@ const Navbar = () => {
                             variant="h6"
                             component="div"
                             sx={{
-                                flexGrow: 1,
+                                cursor: "pointer",
+                            }}
+                            onClick={() => {
+                                navigate("/");
                             }}
                         >
                             FinPlan
                         </Typography>
+                        <Box
+                            sx={{
+                                flexGrow: 1,
+                            }}
+                        />
                         <Typography
                             variant="button"
                             component="span"

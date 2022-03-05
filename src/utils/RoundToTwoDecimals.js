@@ -1,3 +1,3 @@
-export const RoundToTwoDecimals = (num) => {
-    return +(Math.round(num + "e+2") + "e-2");
+export const RoundToTwoDecimals = (num, decimalPoints) => {
+    return parseFloat(num.toFixed(decimalPoints || 2));
 };

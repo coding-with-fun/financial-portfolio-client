@@ -26,7 +26,20 @@
     {
         "_id": 1,
         "title": "Wants",
-        "ratio": 30,
+        "ratio": 20,
+        "categories": [
+            {
+                "_id": 0,
+                "title": "FD",
+                "ratio": 100,
+                "bank": "SBI"
+            }
+        ]
+    },
+    {
+        "_id": 3,
+        "title": "Wants Other",
+        "ratio": 10,
         "categories": [
             {
                 "_id": 0,
@@ -40,6 +53,7 @@
         "_id": 2,
         "title": "Investments",
         "ratio": 50,
+        "isFixed": true,
         "categories": [
             {
                 "_id": 0,

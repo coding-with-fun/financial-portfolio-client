@@ -32,16 +32,60 @@ const MainCategoriesModal = (props) => {
     const [changedIndex, setChangedIndex] = useState();
 
     const calculateRatio = () => {
-        const newRatioSum = _.sumBy(salaryBreakdown, "ratio");
+        // New ratio after change.
+        let newRatioSum = _.sumBy(salaryBreakdown, "ratio");
+
+        // Index of Fixed Index.
+        const nonVariableIndex = _.findIndex(salaryBreakdown, "isFixed");
 
         if (newRatioSum !== 100) {
             const prevSalaryBreakdown = [...salaryBreakdown];
-            const difference = 100 - newRatioSum;
 
-            if (salaryBreakdown.length - 1 !== changedIndex) {
-                _.last(prevSalaryBreakdown).ratio += difference;
-            } else {
-                prevSalaryBreakdown[0].ratio += difference;
+            // Ratio to be settled.
+            let difference = 100 - newRatioSum;
+            const nonVariableElementRatio =
+                prevSalaryBreakdown[nonVariableIndex].ratio;
+
+            // If the ratio can be settled by the fixed variable only.
+            if (nonVariableElementRatio + difference > 0) {
+                prevSalaryBreakdown[nonVariableIndex].ratio += difference;
+            }
+
+            // If the ratio can not be settled by the fixed variable only.
+            else {
+                // Explicitly making the fixed variable's value as "0".
+                prevSalaryBreakdown[nonVariableIndex].ratio = 0;
+
+                // New ratio after change.
+                newRatioSum = _.sumBy(prevSalaryBreakdown, "ratio");
+
+                // New ratio to be settled.
+                difference = 100 - newRatioSum;
+
+                // Looping through all the elements.
+                for (
+                    let index = 0;
+                    index < prevSalaryBreakdown.length;
+                    index++
+                ) {
+                    let ratio = prevSalaryBreakdown[index].ratio;
+
+                    // 1. If the difference is still less then 0.
+                    // 2. If the ratio is more than 0.
+                    // 3. If the element is not the changed element.
+                    if (difference < 0 && ratio > 0 && index !== changedIndex) {
+                        // If difference is equal to or greater than the current ratio, adjust the difference.
+                        if (ratio >= -difference) {
+                            prevSalaryBreakdown[index].ratio =
+                                ratio + difference;
+                        } else {
+                            prevSalaryBreakdown[index].ratio = 0;
+                        }
+
+                        // Reduce the negative difference by the ratio.
+                        difference += ratio;
+                    }
+                }
             }
 
             setSalaryBreakdown(prevSalaryBreakdown);
@@ -106,6 +150,7 @@ const MainCategoriesModal = (props) => {
                                     <TextField
                                         variant="outlined"
                                         size="small"
+                                        disabled={mainCategory.isFixed}
                                         value={mainCategory.ratio}
                                         onChange={(event) => {
                                             handleChangePercentageOnInput(

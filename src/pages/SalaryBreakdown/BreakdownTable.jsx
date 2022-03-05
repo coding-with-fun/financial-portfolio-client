@@ -101,7 +101,9 @@ const BreakdownTable = (props) => {
                                             categoryPercentage;
                                     } else {
                                         categoryPercentage =
-                                            remainingPercentage;
+                                            RoundToTwoDecimals(
+                                                remainingPercentage
+                                            );
                                     }
 
                                     const categoryAmount =

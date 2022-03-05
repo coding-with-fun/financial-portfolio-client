@@ -12,7 +12,7 @@ const App = () => {
 
                 <Box
                     sx={{
-                        pt: "4.2rem",
+                        p: "4.2rem 0 3rem",
                     }}
                 >
                     <IndexRouter />

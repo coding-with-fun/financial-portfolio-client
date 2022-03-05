@@ -3,10 +3,12 @@ import {
     Box,
     Fade,
     FormControl,
+    Grid,
     InputLabel,
     MenuItem,
     Modal,
     Select,
+    TextField,
 } from "@mui/material";
 import React, { useState } from "react";
 
@@ -15,8 +17,8 @@ const style = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    minWidth: "40vw",
-    maxWidth: "90vw",
+    // minWidth: "40vw",
+    width: "80vw",
     backgroundColor: "background.paper",
     boxShadow: 24,
     borderColor: "transparent",
@@ -33,8 +35,11 @@ const CategoriesModal = (props) => {
         useState(0);
 
     const handleMainCategoryTitle = (event) => {
+        console.log(event.target.value);
         setSelectedMainCategoryIndex(event.target.value);
     };
+
+    console.log(salaryBreakdown[selectedMainCategoryIndex].categories);
 
     return (
         <Modal
@@ -52,7 +57,8 @@ const CategoriesModal = (props) => {
                 <Box sx={style}>
                     <FormControl
                         sx={{
-                            m: 1,
+                            mt: 1,
+                            mb: 1,
                             width: 200,
                         }}
                     >
@@ -76,6 +82,64 @@ const CategoriesModal = (props) => {
                             })}
                         </Select>
                     </FormControl>
+
+                    {salaryBreakdown[selectedMainCategoryIndex].categories.map(
+                        (category) => {
+                            return (
+                                <Grid
+                                    container
+                                    rowSpacing={1}
+                                    columnSpacing={{
+                                        xs: 1,
+                                        sm: 2,
+                                        md: 3,
+                                    }}
+                                    sx={{
+                                        m: "1rem 0",
+                                        display: "flex",
+                                        alignItems: "center",
+                                    }}
+                                    key={category._id}
+                                >
+                                    <Grid item xs={3}>
+                                        <TextField
+                                            variant="outlined"
+                                            size="small"
+                                            value={category.title}
+                                            label="Title"
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={3}>
+                                        <TextField
+                                            variant="outlined"
+                                            size="small"
+                                            value={category.amount || 0}
+                                            label="Amount"
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={3}>
+                                        <TextField
+                                            variant="outlined"
+                                            size="small"
+                                            value={category.ratio || 0}
+                                            label="Ratio"
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={3}>
+                                        <TextField
+                                            variant="outlined"
+                                            size="small"
+                                            value={category.bank}
+                                            label="Bank"
+                                        />
+                                    </Grid>
+                                </Grid>
+                            );
+                        }
+                    )}
                 </Box>
             </Fade>
         </Modal>
